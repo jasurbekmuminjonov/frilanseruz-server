@@ -39,15 +39,15 @@ const userSchema = new mongoose.Schema({
         default: {}
     },
     profile_photo: {
-        type: Buffer,
-        default: 'default'
+        type: String,
+        default: ''
     },
     portfolio: {
         type: [{
             title: String,
             description: String,
             link: String,
-            image: Buffer,
+            image: String,
         }],
         default: []
     },

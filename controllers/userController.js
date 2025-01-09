@@ -63,3 +63,28 @@ exports.removeItemFromPortfolio = async (req, res) => {
         res.status(500).json({ message: 'Serverda xatolik yuz berdi' });
     }
 }
+exports.getUserByUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            return res.status(404).json({ message: 'Hisob topilmadi' });
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Serverda xatolik yuz berdi' });
+    }
+}
+
+exports.checkUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (user) {
+            return res.status(400).json({ message: 'Username band', isTaken: true });
+        }
+        res.status(200).json({ message: 'Username band emas', isTaken: false });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Serverda xatolik yuz berdi' });
+    }
+}

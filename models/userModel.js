@@ -13,30 +13,25 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    address: {
-        type: {
-            country: String,
-            region: String,
-            district: String
-        },
-        default: {}
-
+    country: {
+        type: String,
+        default: ""
     },
     job_type: {
         type: String,
-        enum: ['development', 'design', 'testing', 'content', 'marketing', ''],
         default: ""
     },
     job: {
         type: String,
         default: ""
     },
-    experience: {
-        type: {
-            year: Number,
-            level: String
-        },
-        default: {}
+    experience_years: {
+        type: Number,
+        default: null
+    },
+    experience_level: {
+        type: String,
+        default: ""
     },
     profile_photo: {
         type: String,

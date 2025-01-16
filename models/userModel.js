@@ -1,3 +1,4 @@
+const { spread } = require('axios');
 const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     fullname: {
@@ -59,9 +60,12 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        unique: true,
-        lowercase: true,
         match: /^[a-z0-9_]+$/,
+        sparse: true,
+        default: ""
+    },
+    about: {
+        type: String,
         default: ""
     },
     status: {

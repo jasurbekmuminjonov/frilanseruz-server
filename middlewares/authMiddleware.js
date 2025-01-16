@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 async function checkUser(req, res, next) {
     try {
-        const publicPath = ["/signin", "/signup"];
+        const publicPath = ["/signin", "/signup", "/username"];
         const token = req.headers?.authorization?.startsWith("Bearer ")
             ? req.headers.authorization.split(" ")[1]
             : null;
@@ -10,7 +10,7 @@ async function checkUser(req, res, next) {
             return next();
         }
         if (!token) {
-            return res.status(401).json({ message: 'Token berilmagan' });
+            return res.status(401).json({ message: 'Токен не предоставлен' });
         }
         const decoded = await jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
@@ -18,12 +18,12 @@ async function checkUser(req, res, next) {
     } catch (err) {
         console.error(err);
         if (err.name === 'TokenExpiredError') {
-            return res.status(401).json({ message: 'Token muddati tugagan' });
+            return res.status(401).json({ message: 'Срок действия токена истек' });
         }
         if (err.name === 'JsonWebTokenError') {
-            return res.status(401).json({ message: 'Noto\'g\'ri token' });
+            return res.status(401).json({ message: 'Неверный токен' });
         }
-        return res.status(500).json({ message: 'Ichki server xatosi' });
+        return res.status(500).json({ message: 'Внутренняя ошибка сервера' });
     }
 }
 

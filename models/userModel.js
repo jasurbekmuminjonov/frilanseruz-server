@@ -61,7 +61,7 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         match: /^[a-z0-9_]+$/,
-        sparse: true,
+        // sparse: true,
         default: ""
     },
     about: {
